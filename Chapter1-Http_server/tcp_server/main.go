@@ -1,6 +1,11 @@
+// When the program is running, we can perform a request with the command :
+// echo "message " | nc address port
+// the message will appear on the server side if it's received.
 package main
 
 import (
+	"bufio"
+	"fmt"
 	"log"
 	"net"
 )
@@ -11,6 +16,15 @@ const (
 	ConnHost = "localhost"
 	ConnPort = "8080"
 )
+
+func handleRequest(conn net.Conn) {
+	message, err := bufio.NewReader(conn).ReadString('\n')
+	if err != nil {
+		log.Println("error reading : ", err.Error())
+	}
+	fmt.Println("Message received from the client : ", string(message))
+	conn.Close()
+}
 
 func main() {
 
@@ -30,7 +44,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		log.Println(conn)
+		go handleRequest(conn)
 	}
 
 }
