@@ -1,3 +1,8 @@
+// Authentication on server with command :
+// curl --user username:password http://address:port/
+// or
+// curl -i -H 'Authorization:Basic base64{username:password}' http://address:port/
+
 package main
 
 import (
