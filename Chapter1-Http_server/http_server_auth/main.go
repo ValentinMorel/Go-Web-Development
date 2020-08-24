@@ -34,6 +34,7 @@ func BasicAuth(handler http.HandlerFunc, realm string) http.HandlerFunc {
 }
 
 func main() {
+	// Shows a window asking for username and password in web browser with message : "Please enter..."
 	http.HandleFunc("/", BasicAuth(HelloWorld, "Please Enter User and Pass"))
 	err := http.ListenAndServe(ConnHost+":"+ConnPort, nil)
 	if err != nil {
